@@ -41,9 +41,13 @@ class HTTPClientTask extends Task{
 
         $payload['webhook'] = $webhook;
 
+		// Lock
+		
 		$taskResponse = $this->sendRequest($url, $payload);
-
 		$this->client->getTaskStore()->setTask($taskResponse["taskID"], $this);
+		
+		// Unlock
+		
 		return $taskResponse["taskID"];
 	}
 
